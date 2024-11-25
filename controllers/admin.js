@@ -1,22 +1,28 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/AdminModel.js";
-import { generateToken } from "../config/genrateToken.js";
+import { generateToken } from "../config/generateToken.js";
 import bcrypt from "bcryptjs";
-// const JWT_SECRET=process.env.JWT_SECRET;
+
+// Register a new admin
 export const registerAdmin = asyncHandler(async (req, res) => {
   const { adminId, adminName, department, password, email } = req.body;
+
+  // Check for missing fields
   if (!adminId || !adminName || !password || !department || !email) {
-    return res.status(400).json({ msg: "Please fill all required field" });
-    // throw new Error( "Please fill all required field")
+    return res.status(400).json({ msg: "Please fill all required fields" });
   }
+
+  // Check if user already exists
   const userExist = await User.findOne({ email });
   if (userExist) {
-    return res.status(401).json({ msg: "User with this email already exist." });
-    // throw new Error("User with this email already exist.")
+    return res.status(409).json({ msg: "User with this email already exists." });
   }
+
+  // Hash password
   const salt = await bcrypt.genSalt(10);
   const secpass = await bcrypt.hash(password, salt);
 
+  // Create new user
   const user = await User.create({
     adminId,
     email,
@@ -24,28 +30,38 @@ export const registerAdmin = asyncHandler(async (req, res) => {
     password: secpass,
     department,
   });
+
+  // Check if user creation was successful
   if (user) {
     res.status(201).json({
       _id: user._id,
-      adminId: user.adminID,
+      adminId: user.adminId,
       adminName: user.adminName,
       department: user.department,
       email: user.email,
       token: generateToken(user._id),
     });
   } else {
-    return res.status(401).json({ msg: "failed to create user." });
+    res.status(500).json({ msg: "Failed to create user." });
   }
 });
 
+// Authenticate an admin
 export const authAdmin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+
+  // Check for user existence
   const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(401).json({ msg: "Invalid credentials." });
+  }
+
+  // Compare password
   const passwordCompare = await bcrypt.compare(password, user.password);
-  if (user && passwordCompare) {
+  if (passwordCompare) {
     res.status(200).json({
       _id: user._id,
-      adminID: user.adminId,
+      adminId: user.adminId,
       adminName: user.adminName,
       department: user.department,
       email: user.email,
@@ -53,8 +69,10 @@ export const authAdmin = asyncHandler(async (req, res) => {
     });
   } else {
     return res.status(401).json({ msg: "Invalid credentials." });
-    //    throw new Error("Invalid credentials.");
   }
 });
 
-export const restrictTo = () => {};
+// Restrict access (placeholder for future implementation)
+export const restrictTo = () => {
+  // Implementation to restrict access based on roles can be added here
+};
