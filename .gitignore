@@ -1,0 +1,16 @@
+# Node.js dependencies
+node_modules/
+
+# Logs
+*.log
+
+# Environment Files
+.env
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# npm package lock files (optional)
+package-lock.json
+yarn.lock
