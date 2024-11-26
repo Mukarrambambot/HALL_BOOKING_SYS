@@ -13,6 +13,18 @@ const app = express();
 // Load environment variables from .env file
 dotenv.config();
 
+const mongoose = require('mongoose');
+
+mongoose.connect('your-mongodb-uri', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log('MongoDB connected');
+}).catch(err => {
+  console.log('Connection to MongoDB failed:', err);
+});
+
+
 // Connect to MongoDB using mongoose
 const connect = async () => {
   try {
