@@ -1,4 +1,7 @@
+import React from 'react';
+
 function StaffDashboardNavbar({ listAdd, childToParent }) {
+
   const leng = listAdd.length;
   const first = listAdd.slice(0, leng - 1);
   const last = listAdd[leng - 1];

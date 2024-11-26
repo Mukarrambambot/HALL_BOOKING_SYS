@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import React from 'react';
+
 
 function AdminPendingRequests(props) {
   const [bookingData, setBookingData] = useState([]);

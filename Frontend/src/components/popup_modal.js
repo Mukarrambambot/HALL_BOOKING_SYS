@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import React from 'react';
+
 
 export default function PopupModal({ setShowModal, message, redirectTo }) {
   const navigate = useNavigate();

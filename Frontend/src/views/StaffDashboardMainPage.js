@@ -1,3 +1,4 @@
+import React from 'react';
 import StaffDashboardSidebar from "../components/staff_dashboard_sidebar";
 import StaffDashboardMain from "../components/staff_dashboard_main";
 

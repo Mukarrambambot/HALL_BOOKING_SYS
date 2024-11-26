@@ -1,3 +1,4 @@
+import React from 'react';
 import CalendarCom from "../components/calendar";
 import StaffDashboardSidebar from "../components/staff_dashboard_sidebar";
 

@@ -1,16 +1,3 @@
-
-
-
-│
-├── /utils
-│   ├── AutoIncrement.js
-│   └── error.js
-│
-├── index.js
-├── package-lock.json
-├── package.json
-└── README.md
-
 /workspaces/HALL_BOOKING_SYS
 │
 ├── /config
@@ -108,15 +95,28 @@
 │   ├── booking.js
 │   ├── halls.js
 │   └── student.js
+│
+├── /utils
+│   ├── AutoIncrement.js
+│   └── error.js
+│
+├── index.js
+├── package-lock.json
+├── package.json
+└── README.md
 
 
 
 
 PCAS HALL BOOKING LINK TO DATABASE
 
+mongodb+srv://mukbambot118:jBJTqW63JZ4ocHMz@pcashallbooking.yxbud.mongodb.net/?retryWrites=true&w=majority&appName=PcasHallBooking
+
+OR
+
 
 const mongoose = require('mongoose');
-const uri = "mongodb+srv://mukbambot118:<db_password>@pcashallbooking.yxbud.mongodb.net/?retryWrites=true&w=majority&appName=PcasHallBooking";
+const uri = "mongodb+srv://mukbambot118:jBJTqW63JZ4ocHMz@pcashallbooking.yxbud.mongodb.net/?retryWrites=true&w=majority&appName=PcasHallBooking";
 
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 
@@ -132,201 +132,3 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-To connect your frontend with the backend and ensure it works properly in GitHub Codespaces, you will need to follow these steps. This includes setting up your backend, configuring API calls in your frontend, and ensuring the project is properly set up in GitHub Codespaces for both frontend and backend integration.
-
-Steps to Connect Frontend to Backend in GitHub Codespaces
-Set up the Backend (Node.js or any backend you are using)
-
-First, ensure you have a backend running (e.g., Node.js with Express, Django, Flask, etc.). Here's an example of how to do it with Node.js and Express.
-
-Create the backend folder: In your project directory, create a backend folder for your API.
-
-bash
-Copy code
-mkdir backend
-cd backend
-Initialize Node.js project: Inside the backend folder, run the following command to initialize a new Node.js project:
-
-bash
-Copy code
-npm init -y
-Install dependencies (Express, CORS, etc.):
-
-bash
-Copy code
-npm install express cors
-Create server.js in the backend folder:
-
-javascript
-Copy code
-const express = require('express');
-const cors = require('cors');
-const app = express();
-const port = 5000;
-
-app.use(cors());
-app.use(express.json());
-
-// Sample API route
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello from the backend!' });
-});
-
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
-Update Frontend to Call API
-
-Now that your backend is set up, you need to call the API from your frontend React components.
-
-In your frontend React components, use the fetch API or axios to make API calls.
-
-Example in App.js:
-
-javascript
-Copy code
-import React, { useEffect, useState } from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import HomePageCenterContent from "./components/HomePageCenterContent";
-import LoginCenterContent from "./components/LoginCenterContent";
-import RegisterCenterContent from "./components/RegisterCenterContent";
-
-function App() {
-  const [message, setMessage] = useState('');
-
-  // Fetch API data
-  useEffect(() => {
-    fetch('http://localhost:5000/api/hello')  // Change the URL as per the backend endpoint
-      .then(response => response.json())
-      .then(data => setMessage(data.message))
-      .catch(error => console.error('Error fetching API:', error));
-  }, []);
-
-  return (
-    <div className="App">
-      <h1>College Hall Booking System</h1>
-      <p>{message}</p> {/* Display the message fetched from backend */}
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePageCenterContent />} />
-          <Route path="/login" element={<LoginCenterContent />} />
-          <Route path="/register" element={<RegisterCenterContent />} />
-          {/* Add more routes here */}
-        </Routes>
-      </BrowserRouter>
-      <Footer />
-    </div>
-  );
-}
-
-export default App;
-Configure package.json for CORS and API Requests
-
-In the frontend (React app), you may need to set up a proxy to avoid CORS issues when developing locally.
-
-In the frontend package.json, add the following line:
-
-json
-Copy code
-"proxy": "http://localhost:5000"
-This will automatically forward API requests from your React app to your backend server running on localhost:5000.
-
-Run Backend and Frontend Locally
-
-Backend (Node.js): In your backend folder, start the server:
-
-bash
-Copy code
-node server.js
-Frontend (React): In your frontend folder, run the React app:
-
-bash
-Copy code
-npm start
-The React app should now be able to send requests to the backend.
-
-Push Changes to GitHub Codespaces
-
-Once you have tested everything locally, push your changes to GitHub so they work properly in GitHub Codespaces.
-
-Push to GitHub: Make sure both the frontend and backend are committed and pushed to your GitHub repository. If you haven't done this yet, run the following commands:
-
-bash
-Copy code
-git add .
-git commit -m "Setup frontend and backend integration"
-git push origin main
-Deploy Backend and Frontend in GitHub Codespaces
-
-Once your project is pushed, open GitHub Codespaces. It will automatically set up the project environment.
-
-Backend: In Codespaces, you should be able to run your backend server inside the terminal:
-
-bash
-Copy code
-cd backend
-node server.js
-Frontend: In the same Codespace, you can navigate to the frontend folder and start the React app:
-
-bash
-Copy code
-cd frontend
-npm start
-Handling Environment Variables
-
-For deployment and proper environment configuration, make sure to set up environment variables if required (e.g., database URLs, API keys). In the backend, you can use a .env file and dotenv for configuration. Similarly, you can use .env in the frontend for local development.
-
-Example for Backend (backend/.env):
-
-bash
-Copy code
-PORT=5000
-DATABASE_URL=mongodb://localhost:27017/mydb
-Install dotenv in your backend:
-
-bash
-Copy code
-npm install dotenv
-In your server.js file, load the environment variables:
-
-javascript
-Copy code
-require('dotenv').config();
-const port = process.env.PORT || 5000;
-GitHub Codespaces Configuration
-
-Ports: In GitHub Codespaces, ensure that the ports required for your backend (5000 for Express) and frontend (3000 for React) are exposed. GitHub Codespaces usually handles this automatically, but you may need to configure it in the settings if necessary.
-
-Running in Codespaces: When both backend and frontend are set up and running, you should be able to open the ports in Codespaces to view your React app and API responses.
-
-Key Notes:
-Ensure both the frontend and backend are correctly configured to talk to each other through API requests.
-Use localhost for local development and make sure GitHub Codespaces exposes the right ports.
-Test locally first before deploying in GitHub Codespaces to troubleshoot potential issues.
-
-
-
-
-

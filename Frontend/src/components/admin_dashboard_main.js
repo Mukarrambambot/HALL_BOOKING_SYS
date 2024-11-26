@@ -1,3 +1,4 @@
+import React from 'react';
 function AdminDashboardMain() {
     return (
         <div className="p-5 md:p-10 md:pl-16 pb-20 bg-neutral-100 w-full text-base">

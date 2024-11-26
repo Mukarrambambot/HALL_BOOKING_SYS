@@ -1,3 +1,4 @@
+import React from 'react';
 function HomePageCenterContent() {
   const textShadow = {
     textShadow: "5px 5px 10px rgba(80, 80, 80, 0.75)",

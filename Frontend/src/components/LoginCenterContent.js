@@ -1,3 +1,4 @@
+import React from 'react';
 import email_id_input from "../assests/email_id_input.png";
 import password_input from "../assests/password_input.png";
 import { useState } from "react";

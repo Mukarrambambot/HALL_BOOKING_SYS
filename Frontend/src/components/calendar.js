@@ -1,3 +1,4 @@
+import React from 'react';
 import FullCalendar from "@fullcalendar/react";
 import "@fullcalendar/daygrid";
 import dayGridPlugin from "@fullcalendar/daygrid";

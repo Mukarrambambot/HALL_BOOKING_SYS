@@ -1,3 +1,4 @@
+import React from 'react';
 import email_id_input from "../assets/admin_profile_icon.png";
 import password_input from "../assets/password_input.png";
 import { useState } from "react";

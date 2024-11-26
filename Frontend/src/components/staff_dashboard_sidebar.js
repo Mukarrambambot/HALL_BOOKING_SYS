@@ -1,3 +1,4 @@
+import React from 'react';
 import dashboard_icon_grey from "../assests/dashboard_icon_grey.png";
 import dashboard_icon_white from "../assests/dashboard_icon_white.png";
 import hall_icon_grey from "../assests/hall_icon_grey.png";

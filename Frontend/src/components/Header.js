@@ -1,3 +1,4 @@
+import React from 'react';
 import PaticsLogo from "../assets/Patics Logo.png"; // Corrected import statement (assets folder)
 import PCAS from "../assets/PCAS.jpg"; // Corrected import statement (assets folder)
 import HomePageHeader from "./HomePageHeader";

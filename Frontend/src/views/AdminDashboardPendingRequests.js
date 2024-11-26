@@ -1,3 +1,4 @@
+import React from 'react';
 import AdminPendingRequests from "../components/admin_dashboard_pending_requests";
 import AdminDashboardSidebar from "../components/admin_dashboard_sidebar";
 

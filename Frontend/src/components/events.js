@@ -1,3 +1,4 @@
+import React from 'react';
 const events = [
   { title: "All Day Event", start: getDate("YEAR-MONTH-01") },
   {

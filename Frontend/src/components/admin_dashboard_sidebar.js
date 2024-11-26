@@ -1,3 +1,4 @@
+import React from 'react';
 import dashboard_icon_grey from "../assets/dashboard_icon_grey.png";
 import dashboard_icon_white from "../assets/dashboard_icon_white.png";
 import calendar_icon_white from "../assets/calendar_icon_white.png";
