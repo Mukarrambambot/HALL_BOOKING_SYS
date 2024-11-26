@@ -25,11 +25,12 @@ function HomePageHeader() {
       <div className="">
         {(toggleMenu || screenWidth > 768) && (
           <div className="flex flex-wrap items-center justify-between p-1">
+            {/* Left Side Navigation Links */}
             <div className="w-full md:block md:w-auto" id="navbar-default">
               <ul className="gap-3 font-medium text-white flex flex-col p-4 items-center md:p-0 mt-4 md:flex-row md:space-x-8">
                 <li>
-                  <a href="/" className="">
-                    <i className="fa-solid fa-house text-3xl"></i>
+                  <a href="/" className="text-3xl">
+                    <i className="fa-solid fa-house"></i>
                   </a>
                 </li>
                 <li>
@@ -58,6 +59,8 @@ function HomePageHeader() {
                 </li>
               </ul>
             </div>
+
+            {/* Right Side Navigation Links (Login/Register) */}
             <div className="w-full md:block md:w-auto" id="navbar-default">
               <ul className="gap-3 font-medium text-white flex flex-col items-center md:p-0 md:mt-4 md:flex-row md:space-x-4">
                 <li>
@@ -75,17 +78,21 @@ function HomePageHeader() {
             </div>
           </div>
         )}
+
+        {/* Mobile Menu Toggle Button */}
         <button
           data-collapse-toggle="navbar-default"
           type="button"
           onClick={toggleNav}
           className="inline-flex items-center p-2 text-lg w-8 h-8 justify-center text-gray-500 rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-gray-200"
           aria-controls="navbar-default"
-          aria-expanded="false"
+          aria-expanded={toggleMenu ? "true" : "false"}
         >
-          {" "}
-          {!toggleMenu && <i className="fa-solid fa-bars text-gray-300"></i>}
-          {toggleMenu && <i class="fa-solid fa-xmark text-gray-300"></i>}
+          {!toggleMenu ? (
+            <i className="fa-solid fa-bars text-gray-300"></i>
+          ) : (
+            <i className="fa-solid fa-xmark text-gray-300"></i>
+          )}
         </button>
       </div>
     </nav>

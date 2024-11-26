@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { usePDF } from "react-to-pdf";
 
-function StudentDashboardPendingRequests(props) {
+function StaffDashboardPendingRequests(props) {
   const [bookingData, setBookingData] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [bookingPDFData, setBookingPDFData] = useState([{}]);
@@ -11,7 +11,7 @@ function StudentDashboardPendingRequests(props) {
     display: "none",
   };
 
-  //STUDENT ODA DETAILS
+  //STAFF ODA DETAILS
   const userData = JSON.parse(localStorage.getItem("authToken"));
   //
 
@@ -186,7 +186,7 @@ function StudentDashboardPendingRequests(props) {
               Subject: Approval Confirmation for Event Booking
             </div>
 
-            <p class="mb-4">Dear Student of {Booking.Affiliated},</p>
+            <p class="mb-4">Dear Staff of {Booking.Affiliated},</p>
 
             <p class="mb-4 text-justify">
               I am pleased to inform you that your request for booking an event
@@ -229,13 +229,15 @@ function StudentDashboardPendingRequests(props) {
               look forward to hosting a successful gathering.
             </p>
 
-            <div class="text-5xl font-bold mt-6">
-              Best regards,<br></br>
-              <div className="text-2xl font-semibold mt-6">
-                Hall Incharge<br></br>
-                {Booking.Department}
-                <br></br>
-              </div>
+            <p class="mb-4 text-justify">
+              Should you have any further inquiries or require assistance,
+              please feel free to reach out to us.
+            </p>
+
+            <div class="mb-4">
+              Best regards,
+              <br />
+              {Booking.Department} Administration
             </div>
           </div>
         </div>
@@ -244,4 +246,4 @@ function StudentDashboardPendingRequests(props) {
   );
 }
 
-export default StudentDashboardPendingRequests;
+export default StaffDashboardPendingRequests;

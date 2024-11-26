@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/AdminModel.js";
-import { generateToken } from "../config/generateToken.js";
+import { generateToken } from "../config/generateToken.js"; // Adjust path if necessary
 import bcrypt from "bcryptjs";
 
 // Register a new admin

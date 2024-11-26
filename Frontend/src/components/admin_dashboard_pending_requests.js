@@ -4,29 +4,39 @@ function AdminPendingRequests(props) {
   const [bookingData, setBookingData] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [refresh, setRefresh] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalBookingId, setModalBookingId] = useState(null);
 
-  //STUDENT ODA DETAILS
   const userData = JSON.parse(localStorage.getItem("authToken"));
-  //
-
   const bookingDate = new Date();
   bookingDate.setDate(bookingDate.getDate() - 1);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetch(
-        "https://au-hallbooking-backend.onrender.com/api/booking/adminBookings",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userData.token}`,
-          },
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          "https://au-hallbooking-backend.onrender.com/api/booking/adminBookings",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${userData.token}`,
+            },
+          }
+        );
+        if (response.ok) {
+          const hallData = await response.json();
+          setBookingData(hallData);
+        } else {
+          console.error("Failed to fetch booking data");
         }
-      );
-      const hallData = await data.json();
-
-      setBookingData(hallData);
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, [refresh]);
@@ -41,29 +51,25 @@ function AdminPendingRequests(props) {
       case "rejected":
         return "block w-full p-4 bg-[#fe3233] rounded-lg shadow-lg hover:bg-[#f0292a] hover:cursor-default";
       case "approved":
-        return "block w-full p-4 bg-[#37b317] rounded-lg shadow-lg hover:bg-[#31a314] hover:cursor-default"; // cursor-pointer for clickable
+        return "block w-full p-4 bg-[#37b317] rounded-lg shadow-lg hover:bg-[#31a314] hover:cursor-default";
       case "pending":
-        return "block w-full p-4 bg-[#c9c9c9] rounded-lg shadow-lg hover:bg-[#c0c0c0] hover:cursor-default";
+        return "block w-full p-4 bg-[#c9c9c9] rounded-lg shadow-lg hover:bg-[#c0c0c0] hover:cursor-pointer";
       default:
         return "bg-white cursor-default";
     }
   };
 
-  const [showModal, setShowModal] = useState(false);
   const handleDivClick = (status, id) => {
     if (status === "pending") {
+      setModalBookingId(id);
       setShowModal(true);
-      console.log(`Printing PDF for booking with ID: ${id}`);
     }
   };
 
-  const options = {
-    weekday: "short",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  }; //DATE OPTIONS
-  const timeOptions = { hour: "numeric", minute: "numeric" }; //TIME OPTIONS
+  const handleModalClose = () => {
+    setShowModal(false);
+    setModalBookingId(null);
+  };
 
   const handleReject = async (bookingId) => {
     try {
@@ -83,12 +89,9 @@ function AdminPendingRequests(props) {
       );
 
       if (response.ok) {
-        // Handle success
         console.log("Booking rejected successfully");
-        setRefresh(refresh ? false : true);
-        // Add any additional logic or state updates as needed
+        setRefresh(!refresh);
       } else {
-        // Handle error
         console.error("Failed to reject booking");
       }
     } catch (error) {
@@ -112,23 +115,27 @@ function AdminPendingRequests(props) {
           }),
         }
       );
-      console.log(response);
-      if (response.ok) {
-        // Handle success
-        const data = await response.json();
-        console.log(data);
-        console.log("Booking Approved successfully");
-        // Add any additional logic or state updates as needed
-      } else {
-        // Handle error
-        console.error("Failed to reject booking");
-      }
 
-      setRefresh(refresh ? false : true);
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Booking approved successfully", data);
+        setRefresh(!refresh);
+      } else {
+        console.error("Failed to approve booking");
+      }
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
+  const options = {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+
+  const timeOptions = { hour: "numeric", minute: "numeric" };
 
   return (
     <div className="bg-neutral-100 w-full">
@@ -154,10 +161,7 @@ function AdminPendingRequests(props) {
             </ul>
           </div>
 
-          <div
-            className="mt-2 lg:mt-0 w-full md:block md:w-auto"
-            id="navbar-default"
-          >
+          <div className="mt-2 lg:mt-0 w-full md:block md:w-auto" id="navbar-default">
             <select
               id="email"
               value={selectedStatus}
@@ -174,58 +178,79 @@ function AdminPendingRequests(props) {
         </div>
       </nav>
 
-      <div className="p-4 sm:p-10 max-h-[550px] overflow-y-auto">
-        <ul>
-          {filteredBookings.map((booking) => (
-            <li className="p-2">
-              <div className={`${getStatusClassName(booking.Status)}`}>
-                <h5 className="mb-2 text-xl font-bold tracking-tight">
-                  {booking.Hall_Name} |{" "}
-                  {new Date(booking.Date).toLocaleDateString("en-US", options)}{" "}
-                  |{" "}
-                  {new Date(booking.Time_From).toLocaleTimeString(
-                    "en-US",
-                    timeOptions
-                  )}{" "}
-                  TO{" "}
-                  {new Date(booking.Time_To).toLocaleTimeString(
-                    "en-US",
-                    timeOptions
-                  )}{" "}
-                </h5>
-                <div className="flex justify-between items-end">
-                  <div className="font-normal text-black text-sm">
-                    <div>Affiliated Department/Club: {booking.Affiliated}</div>
-                    <div>Reason : {booking.Reason}</div>
+      {isLoading ? (
+        <div className="p-4 sm:p-10 text-center">Loading...</div>
+      ) : (
+        <div className="p-4 sm:p-10 max-h-[550px] overflow-y-auto">
+          <ul>
+            {filteredBookings.map((booking) => (
+              <li key={booking._id} className="p-2">
+                <div
+                  className={`${getStatusClassName(booking.Status)}`}
+                  onClick={() => handleDivClick(booking.Status, booking._id)}
+                >
+                  <h5 className="mb-2 text-xl font-bold tracking-tight">
+                    {booking.Hall_Name} |{" "}
+                    {new Date(booking.Date).toLocaleDateString("en-US", options)} |{" "}
+                    {new Date(booking.Time_From).toLocaleTimeString("en-US", timeOptions)} TO{" "}
+                    {new Date(booking.Time_To).toLocaleTimeString("en-US", timeOptions)}{" "}
+                  </h5>
+                  <div className="flex justify-between items-end">
+                    <div className="font-normal text-black text-sm">
+                      <div>Affiliated Department/Club: {booking.Affiliated}</div>
+                      <div>Reason : {booking.Reason}</div>
+                    </div>
+                    <div className="text-sm">
+                      <div>Submitted On :</div>
+                      <div>{new Date(booking.createdAt).toLocaleString()}</div>
+                    </div>
                   </div>
-                  <div className="text-sm">
-                    <div>Submitted On :</div>
-                    <div>{new Date(booking.createdAt).toLocaleString()}</div>
-                  </div>
-                </div>
 
-                {booking.Status === "pending" ? (
-                  <div className="flex justify-end">
-                    <button
-                      className="bg-green-500 text-white hover:bg-green-600 font-semibold text-md px-4 py-2 rounded shadow hover:shadow-lg mr-2"
-                      onClick={() => handleApprove(booking._id)}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="bg-red-500 text-white hover:bg-red-600 font-semibold text-md px-4 py-2 rounded shadow hover:shadow-lg"
-                      onClick={() => handleReject(booking._id)}
-                    >
-                      Reject
-                    </button>
-                  </div>
-                ) : null}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+                  {booking.Status === "pending" && (
+                    <div className="flex justify-end mt-2">
+                      <button
+                        className="bg-green-500 text-white hover:bg-green-600 font-semibold text-md px-4 py-2 rounded shadow hover:shadow-lg mr-2"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleApprove(booking._id);
+                        }}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="bg-red-500 text-white hover:bg-red-600 font-semibold text-md px-4 py-2 rounded shadow hover:shadow-lg"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleReject(booking._id);
+                        }}
+                      >
+                        Reject
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
+            <h2 className="text-xl font-bold mb-4">Booking Details</h2>
+            {/* Additional details about the booking can go here */}
+            <button
+              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+              onClick={handleModalClose}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
 export default AdminPendingRequests;

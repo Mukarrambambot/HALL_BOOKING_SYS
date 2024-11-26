@@ -1,4 +1,5 @@
 import express from "express";
+import { generateToken } from "../config/generateToken.js"; // Adjust path if necessary
 import { authAdmin, registerAdmin } from "../controllers/admin.js";
 
 const router = express.Router();

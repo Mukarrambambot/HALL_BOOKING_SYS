@@ -1,12 +1,12 @@
 import ceg from "../assests/ceg.jpeg";
-import StudentHallBookingDetailsPage from "./student_dashboard_hall_details";
-import StudentHallBookingNavbar from "./student_dashboard_navbar";
-import StudentHallBookingBookingForm from "./student_dashboard_booking_form";
+import StaffHallBookingDetailsPage from "./staff_dashboard_hall_details";
+import StaffHallBookingNavbar from "./staff_dashboard_navbar";
+import StaffHallBookingBookingForm from "./staff_dashboard_booking_form";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function StudentDashboardHallBookingHallList() {
+function StaffDashboardHallBookingHallList() {
   //GET HALLS FROM halls SCHEMA FROM MONGO
   const navigate = useNavigate();
   const [halls, setHalls] = useState([]);
@@ -82,7 +82,7 @@ function StudentDashboardHallBookingHallList() {
   return (
     <div className="w-full">
       {
-        <StudentHallBookingNavbar
+        <StaffHallBookingNavbar
           listAdd={list}
           childToParent={childToParent}
         />
@@ -162,12 +162,12 @@ function StudentDashboardHallBookingHallList() {
         </div>
       )}
 
-      {show && <StudentHallBookingDetailsPage selectedHall={selectedHall} />}
+      {show && <StaffHallBookingDetailsPage selectedHall={selectedHall} />}
       {
-        showBF && <StudentHallBookingBookingForm selectedHall={selectedHall} /> //
+        showBF && <StaffHallBookingBookingForm selectedHall={selectedHall} /> //
       }
     </div>
   );
 }
 
-export default StudentDashboardHallBookingHallList;
+export default StaffDashboardHallBookingHallList;

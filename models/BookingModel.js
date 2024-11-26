@@ -1,58 +1,62 @@
 import mongoose from "mongoose";
 
+// Define the schema for Booking
 const bookingSchema = new mongoose.Schema(
   {
-    Booking_ID: {
-      type: "Number",
+    bookingId: { // Changed to camelCase for consistency
+      type: Number,
+      required: true,
+      unique: true, // Ensure Booking_ID is unique
+    },
+    facultyId: { // Changed to camelCase for consistency
+      type: Number,
       required: true,
     },
-    Faculty_ID: {
-      type: "Number",
+    hallName: { // Changed to camelCase for consistency
+      type: String,
       required: true,
     },
-    Hall_Name: {
-      type: "String",
+    staffId: { // Changed field name from 'Student_ID' to 'Staff_ID'
+      type: String,
       required: true,
     },
-    Student_ID: {
-      type: "String",
+    department: { // Changed to camelCase for consistency
+      type: String,
       required: true,
     },
-    Department: {
-      type: "String",
+    affiliated: { // Changed to camelCase for consistency
+      type: String,
       required: true,
     },
-    Affiliated: {
-      type: "String",
-      required: true,
-    },
-    Status: {
-      type: "String",
+    status: {
+      type: String,
       enum: ["rejected", "approved", "pending"],
       default: "pending",
     },
-    Date: {
-      type: "Date",
+    date: { // Changed to camelCase for consistency
+      type: Date,
       required: true,
     },
-    Time_From: {
-      type: "Date",
+    timeFrom: { // Changed to camelCase for consistency
+      type: Date,
       required: false,
     },
-    Time_To: {
-      type: "Date",
+    timeTo: { // Changed to camelCase for consistency
+      type: Date,
       required: false,
     },
-    Reason: {
-      type: "String",
+    reason: { // Changed to camelCase for consistency
+      type: String,
       required: true,
     },
-    Remark: {
-      type: "String",
+    remark: { // Changed to camelCase for consistency
+      type: String,
       required: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true } // Automatically add createdAt and updatedAt fields
 );
 
-export default mongoose.model("booking", bookingSchema);
+// Create the model and export it
+export default mongoose.model("Booking", bookingSchema);
+

@@ -1,28 +1,24 @@
-// import Datepicker from "tailwind-datepicker-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PopupModal from "./popup_modal";
 
-function StudentDashboardHallBookingBookingForm({ selectedHall }) {
-  //GET HALLS FROM halls SCHEMA FROM MONGO
+function StaffDashboardHallBookingBookingForm({ selectedHall }) {
   const [halls, setHalls] = useState([]);
-  const [affiliatedDept, setAffiliatedDept] = useState();
+  const [affiliatedDept, setAffiliatedDept] = useState("");
   const [Time_From, setTimeFrom] = useState("");
   const [Time_To, setTimeTo] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
-  const [reason, setReason] = useState();
+  const [reason, setReason] = useState("");
 
-  //
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
-  //STUDENT ODA DEPARTMENT
   const [userData, setUserData] = useState("");
+
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("authToken"));
     setUserData(data);
   }, []);
-  //
 
   useEffect(() => {
     axios
@@ -34,10 +30,9 @@ function StudentDashboardHallBookingBookingForm({ selectedHall }) {
         console.error("Error fetching hall data:", error);
       });
   }, []);
-  ///Handle Booking
+
   const handleBooking = async (event) => {
     event.preventDefault();
-
     try {
       const data = {
         Student_ID: userData.Student_ID,
@@ -51,7 +46,7 @@ function StudentDashboardHallBookingBookingForm({ selectedHall }) {
       };
 
       const hallBooked = await fetch(
-        " https://au-hallbooking-backend.onrender.com/api/booking/createBooking",
+        "https://au-hallbooking-backend.onrender.com/api/booking/createBooking",
         {
           method: "POST",
           headers: {
@@ -83,9 +78,7 @@ function StudentDashboardHallBookingBookingForm({ selectedHall }) {
       setShowSuccessMessage(false);
     }
   };
-  //
 
-  //AVAILABLE SLOTS
   const [availableTimes, setAvailableTimes] = useState([]);
 
   useEffect(() => {
@@ -105,7 +98,6 @@ function StudentDashboardHallBookingBookingForm({ selectedHall }) {
   }, [selectedDate]);
 
   useEffect(() => {
-    // Set the initial value to the first element of availableTimes
     if (availableTimes.length > 0) {
       setTimeFrom(availableTimes[0]);
       setTimeTo(availableTimes[0]);
@@ -136,12 +128,11 @@ function StudentDashboardHallBookingBookingForm({ selectedHall }) {
   const handleTimeToChange = (event) => {
     setTimeTo(event.target.value);
   };
-  //
+
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
     setSelectedDate(selectedDate);
   };
-  //
 
   return (
     <div className="sm:p-14 p-3 bg-zinc-100">
@@ -152,7 +143,7 @@ function StudentDashboardHallBookingBookingForm({ selectedHall }) {
         <PopupModal
           setShowModal={setShowSuccessMessage}
           message={
-            "Your request has been sucessfully sent to the hall incharge."
+            "Your request has been successfully sent to the hall in charge."
           }
         />
       )}
@@ -160,7 +151,7 @@ function StudentDashboardHallBookingBookingForm({ selectedHall }) {
       {showErrorMessage && (
         <PopupModal
           setShowModal={setShowErrorMessage}
-          message={"There occured error, please try again."}
+          message={"There occurred an error, please try again."}
         />
       )}
 
@@ -274,47 +265,52 @@ function StudentDashboardHallBookingBookingForm({ selectedHall }) {
               </td>
               <td>
                 <select
-                  id="TimeTo"
                   value={Time_To}
                   onChange={handleTimeToChange}
                   className="bg-[#f8fafa] border border-gray-300 text-gray-900 text-md rounded-md
-                   focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5"
+                  focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5"
                   required
                 >
-                  <option value="">Select a time</option>
+                  <option disabled value="">
+                    Select a time
+                  </option>
                   {timeToOptions}
                 </select>
               </td>
             </tr>
             <tr>
-              <td className="w-1/6 sm:w-1/3 p-4 align-top">
+              <td className="w-1/6 sm:w-1/3 p-4">
                 <label className="text-sm sm:text-lg font-bold text-gray-900 flex justify-between">
-                  REASON
+                  REASON FOR BOOKING
                   <label className="mx-3 font-bold">:</label>
                 </label>
               </td>
-              <td className="pt-4">
-                <textarea
-                  onChange={(e) => {
-                    setReason(e.target.value);
-                  }}
-                  className="bg-[#f8fafa] h-24 border border-gray-300 text-gray-900 text-md rounded-md
+              <td>
+                <input
+                  type="text"
+                  onChange={(e) => setReason(e.target.value)}
+                  className="bg-[#f8fafa] border border-gray-300 text-gray-900 text-md rounded-md
                    focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5"
+                  required
                 />
+              </td>
+            </tr>
+            <tr>
+              <td className="w-1/6 sm:w-1/3 p-4" />
+              <td>
+                <button
+                  type="submit"
+                  className="sm:w-2/12 w-1/3 border border-blue-500 text-white font-semibold bg-blue-500 rounded-md px-6 py-2"
+                >
+                  BOOK NOW
+                </button>
               </td>
             </tr>
           </tbody>
         </table>
-        <button
-          type="submit"
-          className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none
-           focus:ring-blue-300 font-medium mt-5 rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-        >
-          Book Hall
-        </button>
       </form>
     </div>
   );
 }
 
-export default StudentDashboardHallBookingBookingForm;
+export default StaffDashboardHallBookingBookingForm;

@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
-import User from "../models/staffModel.js";  // Assuming this is the model you're using
-import { generateToken } from "../config/genrateToken.js";  // Assuming this is where the token is generated
+import User from "../models/StaffModel.js";  // Assuming this is the model you're using
+import { generateToken } from "../config/generateToken.js";  // Assuming this is where the token is generated
 import bcrypt from "bcryptjs";
 
 // Register a new user

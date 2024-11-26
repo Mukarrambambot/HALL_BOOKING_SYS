@@ -1,4 +1,4 @@
-function StudentDashboardNavbar({ listAdd, childToParent }) {
+function StaffDashboardNavbar({ listAdd, childToParent }) {
   const leng = listAdd.length;
   const first = listAdd.slice(0, leng - 1);
   const last = listAdd[leng - 1];
@@ -8,7 +8,7 @@ function StudentDashboardNavbar({ listAdd, childToParent }) {
       <nav className="flex h-16 pl-5 bg-white" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2">
           {first.map((item) => (
-            <li className="inline-flex items-center">
+            <li className="inline-flex items-center" key={item}>
               <button
                 onClick={() => childToParent([listAdd, item])}
                 className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600"
@@ -40,4 +40,4 @@ function StudentDashboardNavbar({ listAdd, childToParent }) {
   );
 }
 
-export default StudentDashboardNavbar;
+export default StaffDashboardNavbar;

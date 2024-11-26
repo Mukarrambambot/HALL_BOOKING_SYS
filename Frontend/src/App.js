@@ -5,33 +5,39 @@ import Footer from "./components/Footer";
 import HomePageCenterContent from "./components/HomePageCenterContent";
 import LoginCenterContent from "./components/LoginCenterContent";
 import RegisterCenterContent from "./components/RegisterCenterContent";
-import StudentDashboardMainPage from "./views/StudentDashboardMainPage";
-import StudentDashboardHallBookingMainPage from "./views/StudentDashboardHallBookingMain";
-import StudentDashboardPendingRequests from "./views/StudentDashboardPendingRequests";
-import StudentDashboardHallAvailability from "./views/StudentDashboardHallAvailability";
+import StaffDashboardMainPage from "./views/StaffDashboardMainPage";
+import StaffDashboardHallBookingMainPage from "./views/StaffDashboardHallBookingMain";
+import StaffDashboardPendingRequests from "./views/StaffDashboardPendingRequests";
+import StaffDashboardHallAvailability from "./views/StaffDashboardHallAvailability";
 import AdminDashboardMainPage from "./views/AdminDashboardMainPage";
 import AdminDashboardPendingRequests from "./views/AdminDashboardPendingRequests";
 import AdminDashboardHallAvailability from "./views/AdminDashboardHallAvailability";
 import CalendarCom from "./components/calendar";
-import HallDetailMain from "./components/student_dashboard_hall_booking";
+import HallDetailMain from "./components/staff_dashboard_hall_booking";
 import Admin_Login from "./components/Admin_Login";
+import '@fullcalendar/core/main.css';
+import '@fullcalendar/daygrid/main.css';
 
 function App() {
   const [refresh, setRefresh] = useState();
+  
+  // Toggle refresh state
   const changeRefreshState = () => {
     setRefresh(!refresh);
   };
+
+  // Determine if the header should be displayed based on the URL path
   const isHeader = () => {
     const pathname = window.location.pathname;
-    if (
+    return (
       pathname === "/" ||
       pathname === "/calendar" ||
       pathname.startsWith("/hall_details") ||
       pathname.startsWith("/admin_login")
-    ) {
-      return true;
-    }
+    );
   };
+
+  // Effect to check if the header is needed
   useEffect(() => {
     isHeader();
   }, [refresh]);
@@ -41,48 +47,48 @@ function App() {
       <Header data={{ flag: isHeader() }} />
       <BrowserRouter>
         <Routes>
-          <Route path="" element={<HomePageCenterContent />} />
+          <Route path="/" element={<HomePageCenterContent />} />
           <Route path="/admin_login" element={<Admin_Login />} />
-          <Route path="login" element={<LoginCenterContent />} />
-          <Route path="register" element={<RegisterCenterContent />} />
+          <Route path="/login" element={<LoginCenterContent />} />
+          <Route path="/register" element={<RegisterCenterContent />} />
           <Route
-            path="student/dashboard"
+            path="/Staff/dashboard"
             element={
-              <StudentDashboardMainPage
+              <StaffDashboardMainPage
                 data={"dashboard"}
                 changeRefreshState={changeRefreshState}
               />
             }
           />
           <Route
-            path="student/dashboard/hall_booking"
+            path="/Staff/dashboard/hall_booking"
             element={
-              <StudentDashboardHallBookingMainPage
+              <StaffDashboardHallBookingMainPage
                 data={"hall_booking"}
                 changeRefreshState={changeRefreshState}
               />
             }
           />
           <Route
-            path="student/dashboard/pending_requests"
+            path="/Staff/dashboard/pending_requests"
             element={
-              <StudentDashboardPendingRequests
+              <StaffDashboardPendingRequests
                 data={"pending_requests"}
                 changeRefreshState={changeRefreshState}
               />
             }
           />
           <Route
-            path="student/dashboard/hall_availability"
+            path="/Staff/dashboard/hall_availability"
             element={
-              <StudentDashboardHallAvailability
+              <StaffDashboardHallAvailability
                 data={"hall_availability"}
                 changeRefreshState={changeRefreshState}
               />
             }
           />
           <Route
-            path="admin/dashboard"
+            path="/admin/dashboard"
             element={
               <AdminDashboardMainPage
                 data={"dashboard"}
@@ -91,13 +97,13 @@ function App() {
             }
           />
           <Route
-            path="admin/dashboard/pending_requests"
+            path="/admin/dashboard/pending_requests"
             element={
               <AdminDashboardPendingRequests data={"pending_requests"} />
             }
           />
           <Route
-            path="admin/dashboard/hall_availability"
+            path="/admin/dashboard/hall_availability"
             element={
               <AdminDashboardHallAvailability data={"hall_availability"} />
             }
@@ -112,3 +118,4 @@ function App() {
 }
 
 export default App;
+

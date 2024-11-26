@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Popup_Modal from "./popup_modal";
 
-function StudentDashboardSidebar(props) {
+function StaffDashboardSidebar(props) {
   const styles = {
     backgroundColor: "rgb(14, 165, 233)",
     color: "rgb(255, 255, 255)",
@@ -58,7 +58,7 @@ function StudentDashboardSidebar(props) {
           className="bg-zinc-300 p-2 rounded w-8 h-8 flex justify-center items-center hover:bg-neutral-300"
         >
           {!toggleMenu && <i className="fa-solid fa-bars"></i>}
-          {toggleMenu && <i class="fa-solid fa-xmark"></i>}
+          {toggleMenu && <i className="fa-solid fa-xmark"></i>}
         </button>
       </div>
       {(toggleMenu || screenWidth > 768) && (
@@ -67,12 +67,12 @@ function StudentDashboardSidebar(props) {
             <div className="bg-gray-300 h-14 w-14 mr-3 rounded-full flex justify-center items-center">
               <img src={profile} className="h-10 w-10" alt="profile-icon"></img>
             </div>
-            <div className="font-bold text-xl">{userData.Student_Name}</div>
+            <div className="font-bold text-xl">{userData.Staff_Name}</div>
           </div>
           <a
             className="block text-gray-500 py-2.5 px-4 my-2 rounded"
             style={props.data === "dashboard" ? styles : {}}
-            href="/student/dashboard"
+            href="/staff/dashboard"
           >
             <div className="flex items-center">
               <img
@@ -90,7 +90,7 @@ function StudentDashboardSidebar(props) {
           <a
             className="block text-gray-500 py-2.5 px-4 my-2 rounded"
             style={props.data === "hall_availability" ? styles : {}}
-            href="/student/dashboard/hall_availability"
+            href="/staff/dashboard/hall_availability"
           >
             <div className="flex items-center">
               <img
@@ -108,7 +108,7 @@ function StudentDashboardSidebar(props) {
           <a
             className="block text-gray-500 py-2.5 px-4 my-2 rounded"
             style={props.data === "hall_booking" ? styles : {}}
-            href="/student/dashboard/hall_booking"
+            href="/staff/dashboard/hall_booking"
           >
             <div className="flex items-center">
               <img
@@ -126,7 +126,7 @@ function StudentDashboardSidebar(props) {
           <a
             className="block text-gray-500 py-2.5 px-4 my-2 rounded"
             style={props.data === "pending_requests" ? styles : {}}
-            href="/student/dashboard/pending_requests"
+            href="/staff/dashboard/pending_requests"
           >
             <div className="flex items-center">
               <img
@@ -204,4 +204,4 @@ function StudentDashboardSidebar(props) {
   );
 }
 
-export default StudentDashboardSidebar;
+export default StaffDashboardSidebar;

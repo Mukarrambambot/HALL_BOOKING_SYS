@@ -1,10 +1,10 @@
 import CalendarCom from "../components/calendar";
-import StudentDashboardSidebar from "../components/student_dashboard_sidebar";
+import StaffDashboardSidebar from "../components/staff_dashboard_sidebar";
 
-function StudentDashboardHallAvailability(props) {
+function StaffDashboardHallAvailability(props) {
   return (
     <div className="flex flex-col md:flex-row">
-      <StudentDashboardSidebar
+      <StaffDashboardSidebar
         data={props.data}
         changeRefreshState={props.changeRefreshState}
       />
@@ -13,4 +13,4 @@ function StudentDashboardHallAvailability(props) {
   );
 }
 
-export default StudentDashboardHallAvailability;
+export default StaffDashboardHallAvailability;

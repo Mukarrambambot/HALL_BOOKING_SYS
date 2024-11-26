@@ -1,11 +1,11 @@
-function StudentDashboardMain() {
+function StaffDashboardMain() {
   return (
     <div className="p-5 md:p-10 md:pl-16 pb-20 bg-neutral-100 w-full text-base">
       <div className="text-4xl font-bold mb-5">HALLS BOOKING</div>
       <div>
         <a
           className="text-sky-500 hover:underline hover:cursor-pointer"
-          href="/student/dashboard/hall_availability"
+          href="/staff/dashboard/hall_availability"
         >
           click here
         </a>{" "}
@@ -34,7 +34,7 @@ function StudentDashboardMain() {
             further action to be taken for confirmation
           </li>
           <li>
-            Meanwhile the status of your record can be tracked from your
+            Meanwhile, the status of your record can be tracked from your
             Hall-Booking dashboard
           </li>
           <li>
@@ -46,4 +46,4 @@ function StudentDashboardMain() {
   );
 }
 
-export default StudentDashboardMain;
+export default StaffDashboardMain;

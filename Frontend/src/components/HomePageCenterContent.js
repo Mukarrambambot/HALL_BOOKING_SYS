@@ -1,11 +1,12 @@
-function home_page_center_content() {
-  var textShadow = {
+function HomePageCenterContent() {
+  const textShadow = {
     textShadow: "5px 5px 10px rgba(80, 80, 80, 0.75)",
   };
 
   return (
     <div className="text-xs sm:text-base">
       <div className="flex flex-wrap items-center p-2 sm:p-10">
+        {/* Left Column: Halls Available for Booking */}
         <div className="sm:w-6/12 w-full px-5 sm:px-16 mt-5 sm:mt-0">
           <div
             className="text-3xl sm:text-5xl font-bold text-gray-700"
@@ -13,7 +14,7 @@ function home_page_center_content() {
           >
             HALL BOOKING
           </div>
-          <div className=" text-base sm:text-xl font-semibold text-gray-800 mt-5 sm:mt-8">
+          <div className="text-base sm:text-xl font-semibold text-gray-800 mt-5 sm:mt-8">
             HALLS AVAILABLE FOR BOOKING
           </div>
           <div className="mt-5">
@@ -26,7 +27,7 @@ function home_page_center_content() {
             <span> to check availability of halls</span>
           </div>
           <ol className="list-decimal ml-5 mt-5">
-            <li>A-Block conference Hall (1st Floor)</li>
+            <li>A-Block Conference Hall (1st Floor)</li>
             <li>B-Block OAT (G Floor)</li>
             <li>B-Block Auditorium</li>
             <li>C-Block Fintan Hall (G Floor)</li>
@@ -39,6 +40,8 @@ function home_page_center_content() {
             <li>Computer Lab</li>
           </ol>
         </div>
+
+        {/* Right Column: Steps to Book a Hall */}
         <div className="sm:w-6/12 w-full p-5 sm:p-10">
           <div className="bg-sky-200 p-5 sm:p-10 border border-4 border-black">
             <div className="text-gray-800 font-bold text-xl">
@@ -54,18 +57,13 @@ function home_page_center_content() {
                 </a>{" "}
                 to login
               </li>
-              <li>
-                Check the calendar for availability of the halls on specific
-                dates
-              </li>
+              <li>Check the calendar for availability of the halls on specific dates</li>
               <li>Click "Add new request" and fill in the form and submit</li>
               <li>
-                You will receive an email upon submitting this form and an email
-                after request is approved
+                You will receive an email upon submitting this form and an email after the request is approved
               </li>
               <li>
-                Meanwhile the status of your record can be tracked from your
-                dashboard
+                Meanwhile, the status of your record can be tracked from your dashboard
               </li>
             </ul>
           </div>
@@ -75,4 +73,4 @@ function home_page_center_content() {
   );
 }
 
-export default home_page_center_content;
+export default HomePageCenterContent;

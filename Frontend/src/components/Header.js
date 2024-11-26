@@ -1,9 +1,10 @@
-import PaticsLogo from "../assests/Patics Logo.png"; // Corrected import statement
-import PCAS from "../assests/PCAS.jpg";
+import PaticsLogo from "../assets/Patics Logo.png"; // Corrected import statement (assets folder)
+import PCAS from "../assets/PCAS.jpg"; // Corrected import statement (assets folder)
 import HomePageHeader from "./HomePageHeader";
 
 function Header(props) {
-  var backgroundStyle = {
+  // Background styling for the header
+  const backgroundStyle = {
     backgroundImage: `url(${PCAS})`, // Using template literals for better readability
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -11,12 +12,14 @@ function Header(props) {
   };
 
   return (
-    <header style={backgroundStyle} className="shadow-stone-400 shadow-lg">
+    <header style={backgroundStyle} className="shadow-lg">
+      {/* Navigation bar */}
       <nav className="bg-black/75 py-5 dark:bg-gray-800 px-3 sm:px-10">
         <div className="flex flex-wrap justify-between items-center">
+          {/* Logo and College Information */}
           <div className="flex items-center">
             <img src={PaticsLogo} className="mr-3 h-20 sm:h-24" alt="Patics Logo" />
-            <span className="self-center text-white whitespace-normal">
+            <span className="self-center text-white">
               <div className="font-bold sm:text-2xl">
                 PATRICIAN COLLEGE OF ARTS AND SCIENCE
               </div>
@@ -25,12 +28,16 @@ function Header(props) {
               </div>
             </span>
           </div>
+
+          {/* Page Title */}
           <div className="flex items-center">
             <div className="text-white font-bold text-3xl max-[907px]:mt-5 max-[907px]:text-center">
               Campus Hall Booking
             </div>
           </div>
         </div>
+        
+        {/* Conditional Rendering of HomePageHeader */}
         {props.data.flag && <HomePageHeader />}
       </nav>
     </header>

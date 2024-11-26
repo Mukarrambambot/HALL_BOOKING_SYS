@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import StudentHallBookingBookingForm from "./student_dashboard_booking_form";
+import StaffHallBookingBookingForm from "./staff_dashboard_booking_form";
 import { useState } from "react";
-function StudentHallBookingDetailsPage({ selectedHall }) {
+
+function StaffHallBookingDetailsPage({ selectedHall }) {
   const navigate = useNavigate();
   const [booking, setBooking] = useState(false);
+
   return (
     <>
       {booking ? (
-        <StudentHallBookingBookingForm selectedHall={selectedHall} />
+        <StaffHallBookingBookingForm selectedHall={selectedHall} />
       ) : (
         <div className="p-10 bg-zinc-100">
           <div className="text-3xl font-semibold text-green-700 mb-5">
@@ -45,4 +47,4 @@ function StudentHallBookingDetailsPage({ selectedHall }) {
   );
 }
 
-export default StudentHallBookingDetailsPage;
+export default StaffHallBookingDetailsPage;

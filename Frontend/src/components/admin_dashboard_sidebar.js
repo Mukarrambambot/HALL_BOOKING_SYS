@@ -1,11 +1,11 @@
-import dashboard_icon_grey from "../assests/dashboard_icon_grey.png";
-import dashboard_icon_white from "../assests/dashboard_icon_white.png";
-import calendar_icon_white from "../assests/calendar_icon_white.png";
-import calendar_icon_grey from "../assests/calendar_icon_grey.png";
-import message_icon_grey from "../assests/message_icon_grey.png";
-import message_icon_white from "../assests/message_icon_white.png";
-import logout_icon_grey from "../assests/logout_icon_grey.png";
-import profile from "../assests/admin_profile_icon.png";
+import dashboard_icon_grey from "../assets/dashboard_icon_grey.png";
+import dashboard_icon_white from "../assets/dashboard_icon_white.png";
+import calendar_icon_white from "../assets/calendar_icon_white.png";
+import calendar_icon_grey from "../assets/calendar_icon_grey.png";
+import message_icon_grey from "../assets/message_icon_grey.png";
+import message_icon_white from "../assets/message_icon_white.png";
+import logout_icon_grey from "../assets/logout_icon_grey.png";
+import profile from "../assets/admin_profile_icon.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -110,20 +110,16 @@ function AdminDashboardSidebar(props) {
         </button>
       </nav>
 
-      
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <p className="my-4 text-blueGray-500 text-lg leading-relaxed px-20">
-                    Do you really want to logout ?
+                    Do you really want to logout?
                   </p>
                 </div>
-
                 <div className="flex items-center justify-end p-3 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="text-red-500 hover:bg-red-100 rounded font-semibold px-4 py-2 text-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -138,11 +134,9 @@ function AdminDashboardSidebar(props) {
                       e.preventDefault();
                       setShowModal(false);
                       localStorage.removeItem("authToken");
-
                       props.changeRefreshState();
                       navigate("/");
                     }}
-
                   >
                     Yes
                   </button>

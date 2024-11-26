@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken";
 export const generateToken = (id) => {
   try {
     const token = jwt.sign({ id }, process.env.JWT_SECRET, {
-      expiresIn: "30d",
+      expiresIn: "30d", // Adjust expiration time as needed
     });
     return token;
   } catch (error) {
