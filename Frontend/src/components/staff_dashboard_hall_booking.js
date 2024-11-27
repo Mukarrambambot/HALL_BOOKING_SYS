@@ -1,5 +1,5 @@
 import React from 'react';
-import ceg from "../assests/ceg.jpeg";
+import ceg from "../assets/ceg.jpeg";
 import StaffHallBookingDetailsPage from "./staff_dashboard_hall_details";
 import StaffHallBookingNavbar from "./staff_dashboard_navbar";
 import StaffHallBookingBookingForm from "./staff_dashboard_booking_form";

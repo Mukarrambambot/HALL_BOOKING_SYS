@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePageCenterContent from "./components/HomePageCenterContent";
@@ -15,18 +15,15 @@ import AdminDashboardHallAvailability from "./views/AdminDashboardHallAvailabili
 import CalendarCom from "./components/calendar";
 import HallDetailMain from "./components/staff_dashboard_hall_booking";
 import Admin_Login from "./components/Admin_Login";
-import '@fullcalendar/core/main.css';
-import '@fullcalendar/daygrid/main.css';
+
 
 function App() {
-  const [refresh, setRefresh] = useState();
-  
-  // Toggle refresh state
+  const [refresh, setRefresh] = useState(false);
+
   const changeRefreshState = () => {
     setRefresh(!refresh);
   };
 
-  // Determine if the header should be displayed based on the URL path
   const isHeader = () => {
     const pathname = window.location.pathname;
     return (
@@ -37,15 +34,14 @@ function App() {
     );
   };
 
-  // Effect to check if the header is needed
   useEffect(() => {
     isHeader();
   }, [refresh]);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header data={{ flag: isHeader() }} />
-      <BrowserRouter>
+    <BrowserRouter>
+      <div className="flex flex-col min-h-screen">
+        {isHeader() && <Header data={{ flag: true }} />} {/* Display header conditionally */}
         <Routes>
           <Route path="/" element={<HomePageCenterContent />} />
           <Route path="/admin_login" element={<Admin_Login />} />
@@ -53,69 +49,39 @@ function App() {
           <Route path="/register" element={<RegisterCenterContent />} />
           <Route
             path="/Staff/dashboard"
-            element={
-              <StaffDashboardMainPage
-                data={"dashboard"}
-                changeRefreshState={changeRefreshState}
-              />
-            }
+            element={<StaffDashboardMainPage data={"dashboard"} changeRefreshState={changeRefreshState} />}
           />
           <Route
             path="/Staff/dashboard/hall_booking"
-            element={
-              <StaffDashboardHallBookingMainPage
-                data={"hall_booking"}
-                changeRefreshState={changeRefreshState}
-              />
-            }
+            element={<StaffDashboardHallBookingMainPage data={"hall_booking"} changeRefreshState={changeRefreshState} />}
           />
           <Route
             path="/Staff/dashboard/pending_requests"
-            element={
-              <StaffDashboardPendingRequests
-                data={"pending_requests"}
-                changeRefreshState={changeRefreshState}
-              />
-            }
+            element={<StaffDashboardPendingRequests data={"pending_requests"} changeRefreshState={changeRefreshState} />}
           />
           <Route
             path="/Staff/dashboard/hall_availability"
-            element={
-              <StaffDashboardHallAvailability
-                data={"hall_availability"}
-                changeRefreshState={changeRefreshState}
-              />
-            }
+            element={<StaffDashboardHallAvailability data={"hall_availability"} changeRefreshState={changeRefreshState} />}
           />
           <Route
             path="/admin/dashboard"
-            element={
-              <AdminDashboardMainPage
-                data={"dashboard"}
-                changeRefreshState={changeRefreshState}
-              />
-            }
+            element={<AdminDashboardMainPage data={"dashboard"} changeRefreshState={changeRefreshState} />}
           />
           <Route
             path="/admin/dashboard/pending_requests"
-            element={
-              <AdminDashboardPendingRequests data={"pending_requests"} />
-            }
+            element={<AdminDashboardPendingRequests data={"pending_requests"} />}
           />
           <Route
             path="/admin/dashboard/hall_availability"
-            element={
-              <AdminDashboardHallAvailability data={"hall_availability"} />
-            }
+            element={<AdminDashboardHallAvailability data={"hall_availability"} />}
           />
           <Route path="/calendar" element={<CalendarCom />} />
           <Route path="/hall_details" element={<HallDetailMain />} />
         </Routes>
-      </BrowserRouter>
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 
 export default App;
-

@@ -13,36 +13,18 @@ const app = express();
 // Load environment variables from .env file
 dotenv.config();
 
-// Your existing code for connecting to MongoDB
-mongoose.connect('your-mongodb-uri', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log('MongoDB connected');
-}).catch(err => {
-  console.log('Connection to MongoDB failed:', err);
-});
+// Middleware to enable CORS and parse JSON
+app.use(cors());
+app.use(express.json()); // This will allow you to parse incoming JSON requests
 
-const mongoose = require('mongoose');
-
-mongoose.connect('your-mongodb-uri', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log('MongoDB connected');
-}).catch(err => {
-  console.log('Connection to MongoDB failed:', err);
-});
-
-
-// Connect to MongoDB using mongoose
-const connect = async () => {
+// MongoDB connection
+const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("Database connection established.");
+    console.log("MongoDB connected");
   } catch (error) {
     console.error("Connection to MongoDB failed:", error);
     process.exit(1); // Exit process if MongoDB connection fails
@@ -59,10 +41,6 @@ app.get("/", (req, res) => {
   res.send("Hello World from Backend");
 });
 
-// Middleware to enable CORS and parse JSON
-app.use(cors());
-app.use(express.json()); // This will allow you to parse incoming JSON requests
-
 // Define API routes
 app.use("/api/auth", authRoute); // Authentication routes
 app.use("/api/admin", adminRoute); // Admin routes
@@ -71,8 +49,8 @@ app.use("/api/halls", hallsRoute); // Halls management routes
 app.use("/api/staff", staffRoute); // Staff route (was previously studentRoute)
 
 // Start the server and connect to MongoDB
-app.listen(8800, () => {
-  connect();
-  console.log("Backend server started on port 8800");
+const PORT = process.env.PORT || 8800;
+app.listen(PORT, () => {
+  connectDB();
+  console.log(`Backend server started on port ${PORT}`);
 });
-

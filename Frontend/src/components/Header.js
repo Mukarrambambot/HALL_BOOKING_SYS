@@ -1,6 +1,6 @@
 import React from 'react';
-import PaticsLogo from "../assets/Patics Logo.png"; // Corrected import statement (assets folder)
-import PCAS from "../assets/PCAS.jpg"; // Corrected import statement (assets folder)
+import PaticsLogo from "../assets/Patics_Logo.png";
+import PCAS from "../assets/PCAS.jpg";
 import HomePageHeader from "./HomePageHeader";
 
 function Header(props) {

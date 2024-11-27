@@ -1,6 +1,6 @@
 import React from 'react';
-import email_id_input from "../assests/email_id_input.png";
-import password_input from "../assests/password_input.png";
+import email_id_input from "../assets/email_id_input.png";
+import password_input from "../assets/password_input.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePDF } from "react-to-pdf";
 
 function StaffDashboardPendingRequests(props) {
