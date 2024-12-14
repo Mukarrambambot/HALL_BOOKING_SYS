@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useAuth } from '../contexts/AuthContext.js';
+import Button from './ui/button.js';
+import Input from './ui/input.js';
+import Card from './ui/card.js';
+
 
 function Login() {
   const [email, setEmail] = useState('');

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useAuth } from '../contexts/AuthContext.js';
+import Button from './ui/button.js';
+import Card from './ui/card.js';
+import Table from './ui/table.js';
+
 
 function AdminDashboard() {
   const [bookings, setBookings] = useState([]);

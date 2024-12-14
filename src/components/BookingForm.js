@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useToast } from '@/components/ui/use-toast';
-import { Badge } from '@/components/ui/badge';
+import { useAuth } from '../contexts/AuthContext.js';
+import Button from './ui/button.js';
+import Card from './ui/card.js';
+import Input from './ui/input.js';
+import Select from './ui/select.js';
+import useToast from './ui/use-toast.js';
+import Badge from './ui/badge.js';
+
 
 function BookingForm() {
   const [halls, setHalls] = useState([]);

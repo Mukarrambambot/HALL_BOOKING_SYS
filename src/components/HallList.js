@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+import { useAuth } from '../contexts/AuthContext.js';
+import Button from './ui/button.js';
+import Card from './ui/card.js';
+import Dialog from './ui/dialog.js';
+import Input from './ui/input.js';
+import Badge from './ui/badge.js';
 
 function HallList() {
   const [halls, setHalls] = useState([]);
