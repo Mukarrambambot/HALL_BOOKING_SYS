@@ -4,7 +4,9 @@ import { useAuth } from '../contexts/AuthContext.js';
 import Button from './ui/button.js';
 import Input from './ui/input.js';
 import Card from './ui/card.js';
-
+import CardHeader from './ui/cardHeader.js'; // Ensure correct import
+import CardContent from './ui/cardContent.js'; // Ensure correct import
+import CardTitle from './ui/cardTitle.js'; // Ensure correct import
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -71,4 +73,3 @@ function Login() {
 }
 
 export default Login;
-

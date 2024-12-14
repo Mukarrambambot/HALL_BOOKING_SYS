@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.js';
 import Button from './ui/button.js';
-import { HomeIcon } from 'lucide-react';
+import { Menu, X } from 'lucide-react';  // Importing Menu and X from lucide-react
+
 
 
 function Header() {
