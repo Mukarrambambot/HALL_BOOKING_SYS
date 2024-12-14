@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import Button from './ui/button.js';
 import Input from './ui/input.js';
 import Card from './ui/card.js';
-
+import CardHeader from './ui/cardHeader.js'; // Ensure correct import
+import CardContent from './ui/cardContent.js'; // Ensure correct import
+import CardTitle from './ui/cardTitle.js'; // Ensure correct import
 
 function Register() {
   const [name, setName] = useState('');
