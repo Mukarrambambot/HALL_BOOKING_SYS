@@ -13,15 +13,30 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+mongoose.set('strictQuery', false);
+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+}).then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/halls', hallRoutes);
 app.use('/api/bookings', bookingRoutes);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const startServer = (port) => {
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  }).on('error', (e) => {
+    if (e.code === 'EADDRINUSE') {
+      console.log(`Port ${port} is busy, trying ${port + 1}`);
+      startServer(port + 1);
+    } else {
+      console.error('Server error:', e);
+    }
+  });
+};
 
+const PORT = process.env.PORT || 5000;
+startServer(PORT);

@@ -1,0 +1,17 @@
+MONGODB_URI=your_mongodb_connection_string
+mongodb+srv://mukbambot118:jBJTqW63JZ4ocHMz@pcashallbooking.yxbud.mongodb.net/?retryWrites=true&w=majority&appName=PcasHallBooking
+
+JWT_SECRET=your_jwt_secret
+bd1dc01a837d878b4e1084c2927e3f7259f9543bf2c8b9285906136e7ed0f8c12993d2af92586d569e31f9db7e999d060c6bfef35ffac698ad89fce492d7cb49
+
+SMTP_HOST=mukbambot118@gmail.com
+
+SMTP_PORT=587
+
+SMTP_USER=mukbambot118
+
+SMTP_PASS=xbsv xgyp yzxp qrjr
+
+EMAIL_FROM=mukbambot118@gmail.com
+
+ADMIN_EMAIL=admin@gmail.edu

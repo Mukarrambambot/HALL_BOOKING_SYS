@@ -1,15 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import PrivateRoute from './components/PrivateRoute';
-import Header from './components/Header';
-import Login from './components/Login';
-import Register from './components/Register';
-import Dashboard from './components/Dashboard';
-import HallList from './components/HallList';
-import BookingForm from './components/BookingForm';
-import AdminDashboard from './components/AdminDashboard';
-import Calendar from './components/Calendar';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext.js';
+import PrivateRoute from './components/PrivateRoute.js';
+import Header from './components/Header.js';
+import Login from './components/Login.js';
+import Register from './components/Register.js';
+import Dashboard from './components/Dashboard.js';
+import HallList from './components/HallList.js';
+import BookingForm from './components/BookingForm.js';
+import AdminDashboard from './components/AdminDashboard.js';
+import Calendar from './components/Calendar.js';
 
 function App() {
   return (
@@ -19,15 +19,15 @@ function App() {
           <Header />
           <main className="flex-grow">
             <div className="container mx-auto px-4 py-8">
-              <Switch>
-                <Route exact path="/" component={Login} />
-                <Route path="/register" component={Register} />
-                <PrivateRoute path="/dashboard" component={Dashboard} />
-                <PrivateRoute path="/halls" component={HallList} />
-                <PrivateRoute path="/book" component={BookingForm} />
-                <PrivateRoute path="/admin" component={AdminDashboard} roles={['admin']} />
-                <PrivateRoute path="/calendar" component={Calendar} />
-              </Switch>
+              <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+                <Route path="/halls" element={<PrivateRoute><HallList /></PrivateRoute>} />
+                <Route path="/book" element={<PrivateRoute><BookingForm /></PrivateRoute>} />
+                <Route path="/admin" element={<PrivateRoute roles={['admin']}><AdminDashboard /></PrivateRoute>} />
+                <Route path="/calendar" element={<PrivateRoute><Calendar /></PrivateRoute>} />
+              </Routes>
             </div>
           </main>
           <footer className="bg-gray-100 py-4">
